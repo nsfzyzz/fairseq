@@ -218,12 +218,21 @@ class LanguageModelingTask(LegacyFairseqTask):
         if dataset is None:
             raise FileNotFoundError(f"Dataset not found: {split} ({split_path})")
 
+        # Subsample the dataset only if the data is train dataset
+        if split == 'train':
+            with open('size_ratio.txt') as size_ratio_file:
+                for line in size_ratio_file:
+                    size_ratio = float(line)
+        else:
+            size_ratio = -1
+
         dataset = maybe_shorten_dataset(
             dataset,
             split,
             self.args.shorten_data_split_list,
             self.args.shorten_method,
             self.args.tokens_per_sample,
+            size_ratio,
             self.args.seed,
         )
         dataset = TokenBlockDataset(

@@ -178,6 +178,7 @@ class SentencePredictionTask(FairseqTask):
             self.cfg.shorten_data_split_list,
             self.cfg.shorten_method,
             self.max_positions(),
+            -1,
             self.cfg.seed,
         )
 

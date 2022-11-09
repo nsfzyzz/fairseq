@@ -5,7 +5,8 @@ common:
   log_interval: 200
 
 checkpoint:
-  no_epoch_checkpoints: true
+  no_epoch_checkpoints: false
+  save_dir: /scratch/yyaoqing/fairseq/checkpoint/roberta_pretrain_wikitext-103_subsample_1.0/
 
 task:
   _name: masked_lm

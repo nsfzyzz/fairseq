@@ -146,12 +146,21 @@ class MaskedLMTask(FairseqTask):
                 "Dataset not found: {} ({})".format(split, split_path)
             )
 
+        # Subsample the dataset only if the data is train dataset
+        if split == 'train':
+            with open('/scratch/yyaoqing/fairseq/size_ratio.txt') as size_ratio_file:
+                for line in size_ratio_file:
+                    size_ratio = float(line)
+        else:
+            size_ratio = -1
+
         dataset = maybe_shorten_dataset(
             dataset,
             split,
             self.cfg.shorten_data_split_list,
             self.cfg.shorten_method,
             self.cfg.tokens_per_sample,
+            size_ratio,
             self.cfg.seed,
         )
 

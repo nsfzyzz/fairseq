@@ -7,6 +7,7 @@ import numpy as np
 from fairseq.data import data_utils
 
 from . import BaseWrapperDataset
+from fairseq.data.subsample_dataset import SubsampleDataset
 
 
 class TruncateDataset(BaseWrapperDataset):
@@ -66,13 +67,17 @@ def maybe_shorten_dataset(
     shorten_data_split_list,
     shorten_method,
     tokens_per_sample,
+    size_ratio,
     seed,
 ):
     truncate_split = (
         split in shorten_data_split_list.split(",") or len(shorten_data_split_list) == 0
     )
-    if shorten_method == "truncate" and truncate_split:
+    if size_ratio>0:
+        dataset = SubsampleDataset(dataset, size_ratio, shuffle=False)
+    elif shorten_method == "truncate" and truncate_split:
         dataset = TruncateDataset(dataset, tokens_per_sample)
     elif shorten_method == "random_crop" and truncate_split:
         dataset = RandomCropDataset(dataset, tokens_per_sample, seed)
+    
     return dataset
