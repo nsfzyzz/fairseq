@@ -1,8 +1,8 @@
 export PYTHONUNBUFFERED=1
 
 size_ratio=0.75
-CKPT_DIR=/scratch/yyaoqing/fairseq/checkpoint/roberta_pretrain_wikitext-103_subsample_$size_ratio/
-DATA_DIR=/scratch/yyaoqing/fairseq/data-bin/wikitext-103
+CKPT_DIR=/data/yyaoqing/fairseq/checkpoint/roberta_pretrain_wikitext-103_subsample_$size_ratio/
+DATA_DIR=/data/yyaoqing/fairseq/data-bin/wikitext-103
 LOG_DIR=$CKPT_DIR
 
 CUDA_VISIBLE_DEVICES=4,5,6,7 fairseq-hydra-train -m --config-dir examples/roberta/config/pretraining \

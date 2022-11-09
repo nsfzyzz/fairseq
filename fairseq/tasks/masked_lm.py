@@ -148,7 +148,7 @@ class MaskedLMTask(FairseqTask):
 
         # Subsample the dataset only if the data is train dataset
         if split == 'train':
-            with open('/scratch/yyaoqing/fairseq/size_ratio.txt') as size_ratio_file:
+            with open('/data/yyaoqing/fairseq/size_ratio.txt') as size_ratio_file:
                 for line in size_ratio_file:
                     size_ratio = float(line)
         else:
